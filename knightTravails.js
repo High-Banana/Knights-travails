@@ -18,17 +18,18 @@ const knightPosition = (intialPosition, finalPosition) => {
     const next = [];
     while (queue.length) {
       const currentCoordinate = queue.shift();
-      if (currentCoordinate[0] === finalPosition[0] && currentCoordinate[1] === finalPosition[1]) return moves;
+      const currentX = currentCoordinate[0];
+      const currentY = currentCoordinate[1];
+      if (currentX === finalPosition[0] && currentY === finalPosition[1]) return moves;
 
       for (const offset of KNIGHT_OFFSETS) {
-        const newX = currentCoordinate[0] + offset[0];
-        const newY = currentCoordinate[1] + offset[1];
-        let string = `${newX}, ${newY}`;
+        const nextX = currentX + offset[0];
+        const nextY = currentY + offset[1];
+        let string = `${nextX}, ${nextY}`;
 
-        if (isValid() && !visitedCoordinate.has(string));
-        {
+        if (isValid(nextX, nextY) && !visitedCoordinate.has(string)) {
           visitedCoordinate.add(string);
-          next.push([newX, newY]);
+          next.push([nextX, nextY]);
         }
       }
     }
@@ -38,7 +39,7 @@ const knightPosition = (intialPosition, finalPosition) => {
 };
 
 function isValid(x, y) {
-  if (x > 0 && x < 8 && y > 0 && y < 8) return true;
+  if (x >= 0 && x < 8 && y >= 0 && y < 8) return true;
   else false;
 }
 
